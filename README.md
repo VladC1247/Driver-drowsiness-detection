@@ -1,6 +1,8 @@
+Driver Drowsiness Detection
+
 Acest proiect oferă un sistem complet pentru detectarea oboselii șoferilor în timp real, folosind recunoaștere facială și un model YOLOv8 antrenat cu imagini etichetate. Sistemul permite logarea evenimentelor, vizualizarea statisticilor și gestionarea utilizatorilor printr-o interfață grafică.
 
-🧠 Funcționalități
+Funcționalități
 Recunoaștere facială pentru identificarea șoferului
 Detecția somnolenței (awake / drowsy) în timp real
 Alerte audio/vizuale la oboseală
@@ -10,7 +12,7 @@ Statistici vizuale (grafice) pentru analiza sesiunilor
 📦 Structura Proiectului
 DriverDrowsinessDetection/ │ ├── main.py # Interfața de start și autentificare facială ├── drowsiness_detection.py # Detecția oboselii și logica principală ├── admin_panel.py # Interfața de administrare și statistici ├── db.py # Interfață cu baza de date SQLite ├── database.db # Baza de date SQLite cu utilizatori și evenimente ├── alarm.wav # Sunet pentru avertizarea oboselii ├── yolov8.pt # Model YOLOv8 antrenat └── tools/ ├── captureImg.py # Script de captură imagini etichetate ├── labelImg/ # Tool etichetare └── yolov8/ # Antrenare model YOLOv8
 
-🛠 Tehnologii
+Tehnologii
 Limbaj: Python 3.12
 Interfață grafică: Tkinter, Ttk
 Procesare video: OpenCV, Pillow
@@ -30,6 +32,7 @@ Capturarea imaginilor
 
 Scriptul tools/capture/captureImg.py permite generarea de imagini cu stările dorite (awake, drowsy) folosind webcamul.
 Imaginile sunt salvate în tools/capture/data/images.
+
 Etichetarea imaginilor
 
 Imaginile generate sunt etichetate manual folosind aplicația labelImg.
@@ -48,6 +51,7 @@ Atenție: asigurați-vă că numele fișierelor .jpg și .txt corespund și că 
 Antrenarea modelului
 
 Se folosește comanda YOLOv8:
+
 yolo detect train data=tools/yolov8/data.yaml model=yolov8n.pt epochs=150 imgsz=640 device=cpu
 Parametrul device=cpu este utilizat în cazul sistemelor care nu dispun de o placă video performantă, dar au un procesor suficient de puternic. Astfel, antrenarea poate avea loc direct pe CPU, fără a fi necesar un GPU dedicat.
 Rezultatul antrenării este salvat automat în runs/detect/train/weights/best.pt
@@ -58,31 +62,24 @@ Acesta este ulterior mutat în folderul DriverDrowsinessDetection
 La rularea programului, modelul este folosit pentru a face predicții pe cadrele video capturate în timp real. Etichetele awake și drowsy sunt extrase pentru a decide dacă se declanșează o alertă de oboseală.
 Astfel, întregul pipeline — de la captură și etichetare, până la integrarea modelului în aplicație — este complet automatizat și flexibil.
 
-🚀 Cum rulezi proiectul
+Cum rulezi proiectul?
+
 Instalează toate dependențele (requirements.txt)
-
 pip install -r requirements.txt
-
 Rulează interfața principală:
-
 Rulează comanda: python main.py în terminal
-
 Identifică-te prin recunoaștere facială sau adaugă un utilizator nou
-
 Începe monitorizarea sesiunii sau accesează panoul de administrare (dacă ai permisiuni)
 
-🔐 Notă pentru testare și acces administrativ
+Notă pentru testare și acces administrativ:
+
 Pentru utilizatorii noi care vor să testeze aplicația, dar nu au deja statut de administrator:
-
 Rulați comanda: python main.py în terminal
-
 La prima rulare, fața nefiind recunoscută, veți fi adăugat automat ca utilizator de tip user după ce introduceți un nume nou.
-
 După salvarea utilizatorului, închideți aplicația și rulați: python admin_panel.py
-
 Din panoul de administrare, selectați numele dvs. din listă și apăsați Make Admin pentru a vă acorda permisiuni administrative.
 
-📂 Bază de date
-users – embedding facial + rol (admin/user)
+📂 Bază de date:
 
+users – embedding facial + rol (admin/user)
 events – loguri precum start_trip, fatigue_detected, short_break_exceeded, etc.
