@@ -79,7 +79,7 @@ La prima rulare, fața nefiind recunoscută, veți fi adăugat automat ca utiliz
 După salvarea utilizatorului, închideți aplicația și rulați: python admin_panel.py
 Din panoul de administrare, selectați numele dvs. din listă și apăsați Make Admin pentru a vă acorda permisiuni administrative.
 
-📂 Bază de date:
+Bază de date:
 
 users – embedding facial + rol (admin/user)
 events – loguri precum start_trip, fatigue_detected, short_break_exceeded, etc.
